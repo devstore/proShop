@@ -1,12 +1,15 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
 import Header from './components/Header'
 import Footer from './components/Footer'
 const App = () => {
   return (
     <>
       <Header></Header>
-      <main>
-        <h1>Welcome to the ProShop</h1>
+      <main className="py-3">
+        <Container>
+          <h1>Welcome to the ProShop</h1>
+        </Container>
       </main>
       <Footer></Footer>
     </>

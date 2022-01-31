@@ -7,8 +7,11 @@ import Loader from '../components/Loader'
 import { listProducts } from '../actions/productActions'
 
 const HomeScreen = () => {
+  // dispatch is to dispatch the actions for updating the state
   const dispatch = useDispatch()
-  //This should be same name as in store.js
+
+  // useSelector is to get the state from store
+
   const productList = useSelector((state) => state.productList)
 
   const { loading, error, products } = productList
@@ -26,8 +29,8 @@ const HomeScreen = () => {
         <Message variant="danger">{error}</Message>
       ) : (
         <Row>
-          {products.map((product) => (
-            <Col sm={12} md={6} lg={4} xl={3}>
+          {products.map((product, index) => (
+            <Col key={index} sm={12} md={6} lg={4} xl={3}>
               <Product product={product} />
             </Col>
           ))}

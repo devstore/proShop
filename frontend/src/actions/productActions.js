@@ -30,9 +30,9 @@ export const listProducts = () => async (dispatch) => {
   }
 }
 
-//listProduct is the action which will be fired from HomeScreen
+//listProductDetails is the action which will be fired from ProductScreen
 export const listProductDetails = (id) => async (dispatch) => {
-  console.log(`Request received in action listProductDetails for ID: ${id}`)
+  //console.log(`Request received in action listProductDetails for ID: ${id}`)
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST })
 

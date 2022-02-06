@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CART_ADD_ITEM } from '../constants/cartConstants'
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants'
 
 /* getState can be used to get the full state from the store
 We will use this to get the cart data from state and save it in browser's storage.
@@ -21,5 +21,14 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
   /*save cart in local browser storage.
   TO convert javascript object to json, we are using Json.stringify
   */
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+}
+
+export const removeFromCart = (id) => (dispatch, getState) => {
+  console.log('2. remove action')
+  dispatch({
+    type: CART_REMOVE_ITEM,
+    payload: id,
+  })
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }

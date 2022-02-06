@@ -13,7 +13,7 @@ const reducer = combineReducers({
   productDetails: productDetailsReducer,
   cart: cartReducer,
 })
-
+console.log('Store')
 //Fetching data from browser local storage and setting carts data into initialState
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))

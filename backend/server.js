@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import connectDB from './config/db.js'
 import productRoutes from './routes/productRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 dotenv.config()
@@ -11,11 +12,15 @@ connectDB()
 
 const app = express()
 
+//This enables server to accept data in JSON format from API's clients.
+app.use(express.json())
+
 app.get('/api', (req, res) => {
   res.send('API is running...')
 })
-//Middleware for prodcuts apis
+//Middleware for apis
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
 
 //Middleware for handling bad URLs
 app.use(notFound)

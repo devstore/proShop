@@ -24,6 +24,7 @@ const userSchema = mongoose.Schema(
   { timestamps: true },
 )
 
+//This method is used to compare the user entered password's hash with db stored hash using bcrypt
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)
 }

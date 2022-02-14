@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Card, Button, Image } from 'react-bootstrap'
-import { listProductDetails } from '../actions/productActions'
+import { createOrder } from '../actions/orderActions'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 
 const PlaceOrderScreen = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const cart = useSelector((state) => state.cart)
 
   const addDecimals = (num) => {
@@ -33,8 +36,28 @@ const PlaceOrderScreen = () => {
       Number(cart.taxPrice),
   )
 
+  const orderCreate = useSelector((state) => state.orderCreate)
+  const { order, success, error } = orderCreate
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`)
+    }
+    // eslint-disable-next-line
+  }, [navigate, success])
+
   const placeOrderHandler = () => {
-    console.log('Place Order')
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+        paymentMethod: cart.paymentMethod,
+      }),
+    )
   }
   return (
     <>
@@ -121,6 +144,9 @@ const PlaceOrderScreen = () => {
                   <Col>Total</Col>
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button

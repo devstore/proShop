@@ -30,7 +30,6 @@ const PaymentScreen = () => {
     <FormContainer>
       <CheckoutSteps step1 step2 Step3 />
       <h1>Payment Method</h1>
-
       <Form onSubmit={submitHandler}>
         <Row>
           <Col>

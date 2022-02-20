@@ -10,6 +10,8 @@ import { cartReducer } from './reducers/cartReducers'
 import {
   orderCreateReducer,
   orderDetailsReducer,
+  orderListMyReducer,
+  orderPayReducer,
 } from './reducers/orderReducers'
 import {
   userLoginReducer,
@@ -28,6 +30,8 @@ const reducer = combineReducers({
   userUpdateProfile: userUpdateProfileReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
+  orderPay: orderPayReducer,
+  orderListMy: orderListMyReducer,
 })
 console.log('Store')
 //Fetching data from browser local storage and setting carts data into initialState

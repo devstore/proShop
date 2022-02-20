@@ -5,8 +5,8 @@ import asyncHandler from 'express-async-handler'
 //This route will be used to protect any API we wish to protect with JWT authentication
 const protect = asyncHandler(async (req, res, next) => {
   let token
-  // console.log('Protect Middleware')
-  // console.log('authorization=' + JSON.stringify(req.headers))
+  //console.log('Protect Middleware')
+  //console.log('authorization=' + JSON.stringify(req.headers))
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')

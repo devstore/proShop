@@ -4,8 +4,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
+import Paginate from '../components/Paginate'
 import Loader from '../components/Loader'
-//import Paginate from '../components/Paginate'
 import {
   listProducts,
   deleteProduct,
@@ -15,7 +15,7 @@ import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
 const ProductListScreen = () => {
   const params = useParams()
-  //const pageNumber = params.pageNumber || 1
+  const pageNumber = params.pageNumber || 1
 
   const dispatch = useDispatch()
 
@@ -51,8 +51,7 @@ const ProductListScreen = () => {
     if (successCreate) {
       navigate(`/admin/product/${createdProduct._id}/edit`)
     } else {
-      //  dispatch(listProducts('', pageNumber))
-      dispatch(listProducts())
+      dispatch(listProducts('', pageNumber))
     }
   }, [
     dispatch,
@@ -61,7 +60,7 @@ const ProductListScreen = () => {
     successDelete,
     successCreate,
     createdProduct,
-    // pageNumber,
+    pageNumber,
   ])
 
   const deleteHandler = (id) => {
@@ -133,7 +132,7 @@ const ProductListScreen = () => {
               ))}
             </tbody>
           </Table>
-          {/* <Paginate pages={pages} page={page} isAdmin={true} /> */}
+          <Paginate pages={pages} page={page} isAdmin={true} />
         </>
       )}
     </>

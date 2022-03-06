@@ -19,14 +19,6 @@ const app = express()
 //This enables server to accept data in JSON format from API's clients.
 app.use(express.json())
 
-//This is to see the logging of all http calls in dev mode
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'))
-}
-
-app.get('/api', (req, res) => {
-  res.send('API is running...')
-})
 //Middleware for apis
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
@@ -40,6 +32,24 @@ app.get('/api/config/paypal', (req, res) =>
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
+//For Production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')),
+  )
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running....')
+  })
+}
+
+//This is to see the logging of all http calls in dev mode
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
+
 //Middleware for handling bad URLs
 app.use(notFound)
 
@@ -47,6 +57,7 @@ app.use(notFound)
 app.use(errorHandler)
 
 const port = process.env.PORT || 5000
+
 app.listen(
   port,
   console.log(

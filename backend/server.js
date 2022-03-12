@@ -30,6 +30,7 @@ app.get('/api/config/paypal', (req, res) =>
 
 //Making the folder static so that it is accessible to the application
 const __dirname = path.resolve()
+console.log(`__dirname=${__dirname}`)
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 //For Production
@@ -41,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
   )
 } else {
   app.get('/', (req, res) => {
-    res.send('API is running....')
+    res.send('API is running...')
   })
 }
 
